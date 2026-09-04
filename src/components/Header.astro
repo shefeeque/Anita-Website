@@ -1,0 +1,182 @@
+---
+import { site } from "../data/site";
+
+const links = [
+	{ href: "#about", label: "About" },
+	{ href: "#work", label: "Work" },
+	{ href: "#skills", label: "Skills" },
+	{ href: "#contact", label: "Contact" },
+];
+---
+
+<header class="header" id="site-header">
+	<div class="container header-inner">
+		<a href="#top" class="logo" data-magnetic>
+			<span class="logo-mark">{site.initials}</span>
+			<span class="logo-text">{site.name}</span>
+		</a>
+
+		<nav class="nav-desktop">
+			{links.map((l) => <a href={l.href}>{l.label}</a>)}
+		</nav>
+
+		<a href={`mailto:${site.email}`} class="btn btn-ghost header-cta" data-magnetic>Say hello</a>
+
+		<button class="menu-btn" id="menu-btn" aria-label="Toggle menu" aria-expanded="false">
+			<span></span>
+			<span></span>
+		</button>
+	</div>
+
+	<div class="nav-mobile" id="nav-mobile">
+		{links.map((l) => <a href={l.href}>{l.label}</a>)}
+		<a href={`mailto:${site.email}`} class="btn btn-primary">Say hello</a>
+	</div>
+</header>
+
+<style>
+	.header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 100;
+		transition: background 0.3s ease, border-color 0.3s ease;
+	}
+
+	.header.is-scrolled {
+		background: rgba(8, 8, 12, 0.72);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		border-bottom: 1px solid var(--border);
+	}
+
+	.header-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-top: 1.25rem;
+		padding-bottom: 1.25rem;
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		text-decoration: none;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1.05rem;
+	}
+
+	.logo-mark {
+		display: grid;
+		place-items: center;
+		width: 32px;
+		height: 32px;
+		border-radius: 9px;
+		background: var(--gradient);
+		color: #08080c;
+		font-size: 0.9rem;
+	}
+
+	.nav-desktop {
+		display: flex;
+		gap: 2.25rem;
+	}
+
+	.nav-desktop a {
+		text-decoration: none;
+		color: var(--text-dim);
+		font-size: 0.92rem;
+		font-weight: 500;
+		transition: color 0.2s ease;
+		position: relative;
+	}
+
+	.nav-desktop a:hover {
+		color: var(--text);
+	}
+
+	.header-cta {
+		padding: 0.6rem 1.3rem;
+		font-size: 0.88rem;
+	}
+
+	.menu-btn {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		gap: 5px;
+		width: 38px;
+		height: 38px;
+		background: none;
+		border: 1px solid var(--border-strong);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.menu-btn span {
+		display: block;
+		height: 1.5px;
+		margin: 0 8px;
+		background: var(--text);
+		transition: transform 0.25s ease, opacity 0.25s ease;
+	}
+
+	.nav-mobile {
+		display: none;
+		flex-direction: column;
+		gap: 1.5rem;
+		padding: 1.5rem 1.75rem 2.5rem;
+		background: rgba(8, 8, 12, 0.98);
+		border-bottom: 1px solid var(--border);
+	}
+
+	.nav-mobile a {
+		text-decoration: none;
+		color: var(--text);
+		font-size: 1.05rem;
+		font-weight: 500;
+	}
+
+	.nav-mobile .btn {
+		width: fit-content;
+	}
+
+	@media (max-width: 780px) {
+		.nav-desktop,
+		.header-cta {
+			display: none;
+		}
+		.menu-btn {
+			display: flex;
+		}
+		.nav-mobile.is-open {
+			display: flex;
+		}
+	}
+</style>
+
+<script>
+	const header = document.getElementById("site-header");
+	const onScroll = () => {
+		if (!header) return;
+		header.classList.toggle("is-scrolled", window.scrollY > 12);
+	};
+	onScroll();
+	window.addEventListener("scroll", onScroll, { passive: true });
+
+	const menuBtn = document.getElementById("menu-btn");
+	const navMobile = document.getElementById("nav-mobile");
+	menuBtn?.addEventListener("click", () => {
+		const open = navMobile?.classList.toggle("is-open");
+		menuBtn.setAttribute("aria-expanded", String(!!open));
+	});
+	navMobile?.querySelectorAll("a").forEach((a) =>
+		a.addEventListener("click", () => {
+			navMobile.classList.remove("is-open");
+			menuBtn?.setAttribute("aria-expanded", "false");
+		})
+	);
+</script>

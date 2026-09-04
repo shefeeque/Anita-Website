@@ -1,0 +1,105 @@
+---
+import { site, about } from "../data/site";
+---
+
+<section class="section" id="about">
+	<div class="container about-grid">
+		<div class="about-visual" data-reveal>
+			<div class="avatar" data-tilt>
+				<span class="avatar-initial">{site.initials}</span>
+			</div>
+		</div>
+
+		<div class="about-copy">
+			<p class="eyebrow" data-reveal>About</p>
+			<h2 class="section-title" data-reveal>A little about me.</h2>
+
+			<div class="about-paragraphs">
+				{about.paragraphs.map((p) => <p data-reveal>{p}</p>)}
+			</div>
+
+			<dl class="about-facts" data-reveal>
+				{about.facts.map((f) => (
+					<div class="fact">
+						<dt>{f.label}</dt>
+						<dd>{f.value}</dd>
+					</div>
+				))}
+			</dl>
+		</div>
+	</div>
+</section>
+
+<style>
+	.about-grid {
+		display: grid;
+		grid-template-columns: 280px 1fr;
+		gap: 4rem;
+		align-items: start;
+	}
+
+	.avatar {
+		aspect-ratio: 1;
+		border-radius: 28px;
+		background: var(--gradient);
+		padding: 3px;
+		display: grid;
+		place-items: center;
+		transition: transform 0.15s var(--ease);
+	}
+
+	.avatar-initial {
+		width: 100%;
+		height: 100%;
+		border-radius: 26px;
+		background: var(--bg-soft);
+		display: grid;
+		place-items: center;
+		font-family: var(--font-display);
+		font-size: 5rem;
+		font-weight: 700;
+	}
+
+	.about-copy .section-title {
+		margin-top: 0.75rem;
+	}
+
+	.about-paragraphs {
+		margin-top: 1.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1.1rem;
+		max-width: 62ch;
+		color: var(--text-dim);
+		font-size: 1.05rem;
+	}
+
+	.about-facts {
+		margin: 2.5rem 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2.5rem;
+	}
+
+	.fact dt {
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--text-faint);
+	}
+
+	.fact dd {
+		margin: 0.35rem 0 0;
+		font-weight: 600;
+	}
+
+	@media (max-width: 780px) {
+		.about-grid {
+			grid-template-columns: 1fr;
+		}
+		.avatar {
+			max-width: 180px;
+		}
+	}
+</style>

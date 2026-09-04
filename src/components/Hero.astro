@@ -1,0 +1,231 @@
+---
+import { site } from "../data/site";
+---
+
+<section class="hero" id="top">
+	<div class="orb orb-a"></div>
+	<div class="orb orb-b"></div>
+
+	<div class="container hero-inner">
+		<p class="eyebrow hero-anim" style="animation-delay: 0.05s">Available for work · {site.location}</p>
+
+		<h1 class="hero-title hero-anim" style="animation-delay: 0.15s">
+			Hi, I'm <span class="gradient-text">{site.name}</span>
+		</h1>
+
+		<h2 class="hero-role hero-anim" style="animation-delay: 0.25s">
+			<span id="typewriter" aria-live="polite"></span><span class="cursor-blink">|</span>
+		</h2>
+
+		<p class="hero-tagline hero-anim" style="animation-delay: 0.35s">{site.tagline}</p>
+
+		<div class="hero-actions hero-anim" style="animation-delay: 0.45s">
+			<a href="#work" class="btn btn-primary" data-magnetic>View my work</a>
+			<a href="#contact" class="btn btn-ghost" data-magnetic>Get in touch</a>
+		</div>
+	</div>
+
+	<a href="#about" class="scroll-cue" aria-label="Scroll to about section">
+		<span></span>
+	</a>
+</section>
+
+<style>
+	.hero {
+		position: relative;
+		min-height: 100svh;
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+	}
+
+	.orb {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(90px);
+		opacity: 0.55;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	.orb-a {
+		width: 520px;
+		height: 520px;
+		top: -160px;
+		right: -120px;
+		background: radial-gradient(circle, var(--violet), transparent 70%);
+		animation: float-a 16s ease-in-out infinite;
+	}
+
+	.orb-b {
+		width: 420px;
+		height: 420px;
+		bottom: -140px;
+		left: -100px;
+		background: radial-gradient(circle, var(--cyan), transparent 70%);
+		animation: float-b 18s ease-in-out infinite;
+	}
+
+	@keyframes float-a {
+		0%,
+		100% {
+			transform: translate(0, 0);
+		}
+		50% {
+			transform: translate(-40px, 40px);
+		}
+	}
+
+	@keyframes float-b {
+		0%,
+		100% {
+			transform: translate(0, 0);
+		}
+		50% {
+			transform: translate(40px, -30px);
+		}
+	}
+
+	.hero-inner {
+		position: relative;
+		z-index: 1;
+		padding-top: 6rem;
+	}
+
+	.hero-anim {
+		opacity: 0;
+		animation: hero-in 0.8s var(--ease) forwards;
+	}
+
+	@keyframes hero-in {
+		from {
+			opacity: 0;
+			transform: translateY(24px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-anim {
+			animation: none;
+			opacity: 1;
+		}
+	}
+
+	.hero-title {
+		margin-top: 1.5rem;
+		font-size: clamp(2.75rem, 7vw, 5.5rem);
+		line-height: 1.03;
+	}
+
+	.hero-role {
+		margin-top: 0.75rem;
+		font-size: clamp(1.25rem, 2.6vw, 1.9rem);
+		color: var(--text-dim);
+		font-weight: 500;
+		font-family: var(--font-mono);
+		min-height: 1.6em;
+	}
+
+	.cursor-blink {
+		color: var(--cyan);
+		animation: blink 1s step-end infinite;
+	}
+
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+
+	.hero-tagline {
+		margin-top: 1.75rem;
+		max-width: 560px;
+		font-size: 1.1rem;
+		color: var(--text-dim);
+	}
+
+	.hero-actions {
+		margin-top: 2.5rem;
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.scroll-cue {
+		position: absolute;
+		bottom: 2.5rem;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 26px;
+		height: 42px;
+		border: 1.5px solid var(--border-strong);
+		border-radius: 20px;
+		z-index: 1;
+	}
+
+	.scroll-cue span {
+		display: block;
+		width: 4px;
+		height: 8px;
+		margin: 7px auto 0;
+		border-radius: 3px;
+		background: var(--cyan);
+		animation: scroll-cue 1.8s ease infinite;
+	}
+
+	@keyframes scroll-cue {
+		0% {
+			transform: translateY(0);
+			opacity: 1;
+		}
+		70% {
+			transform: translateY(14px);
+			opacity: 0;
+		}
+		100% {
+			opacity: 0;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.hero-actions {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>
+
+<script define:vars={{ roles: site.roles }}>
+	const el = document.getElementById("typewriter");
+	if (el) {
+		let roleIndex = 0;
+		let charIndex = 0;
+		let deleting = false;
+
+		const tick = () => {
+			const current = roles[roleIndex];
+			if (!deleting) {
+				charIndex++;
+				el.textContent = current.slice(0, charIndex);
+				if (charIndex === current.length) {
+					deleting = true;
+					setTimeout(tick, 1400);
+					return;
+				}
+			} else {
+				charIndex--;
+				el.textContent = current.slice(0, charIndex);
+				if (charIndex === 0) {
+					deleting = false;
+					roleIndex = (roleIndex + 1) % roles.length;
+				}
+			}
+			setTimeout(tick, deleting ? 35 : 65);
+		};
+		tick();
+	}
+</script>

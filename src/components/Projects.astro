@@ -1,0 +1,112 @@
+---
+import { projects } from "../data/site";
+---
+
+<section class="section" id="work">
+	<div class="container">
+		<div class="section-head">
+			<div>
+				<p class="eyebrow" data-reveal>Selected work</p>
+				<h2 class="section-title" data-reveal>Initiatives I've led.</h2>
+			</div>
+			<p class="section-note" data-reveal>Swap in real initiatives, case studies, and links from src/data/site.ts</p>
+		</div>
+
+		<div class="projects-grid">
+			{projects.map((p, i) => (
+				<article class="project-card glass" data-tilt data-reveal>
+					<div class="project-index">0{i + 1}</div>
+					<h3>{p.title}</h3>
+					<p class="project-desc">{p.description}</p>
+					<div class="project-tags">
+						{p.tags.map((t) => <span class="tag">{t}</span>)}
+					</div>
+					<div class="project-links">
+						<a href={p.href} data-magnetic>Case study &nbsp;→</a>
+						<a href={p.repo} data-magnetic>Learn more &nbsp;→</a>
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.section-note {
+		max-width: 320px;
+		color: var(--text-faint);
+		font-size: 0.9rem;
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.project-card {
+		position: relative;
+		padding: 2.25rem;
+		border-radius: 22px;
+		transition: transform 0.25s var(--ease), border-color 0.25s ease;
+		will-change: transform;
+	}
+
+	.project-card:hover {
+		border-color: var(--border-strong);
+	}
+
+	.project-index {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--text-faint);
+	}
+
+	.project-card h3 {
+		margin-top: 1rem;
+		font-size: 1.4rem;
+	}
+
+	.project-desc {
+		margin-top: 0.85rem;
+		color: var(--text-dim);
+		font-size: 0.98rem;
+		line-height: 1.65;
+	}
+
+	.project-tags {
+		margin-top: 1.5rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tag {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		padding: 0.35rem 0.7rem;
+		border-radius: 6px;
+		background: rgba(255, 255, 255, 0.05);
+		color: var(--text-dim);
+	}
+
+	.project-links {
+		margin-top: 1.75rem;
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.project-links a {
+		text-decoration: none;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--text);
+		border-bottom: 1px solid transparent;
+		transition: border-color 0.2s ease, color 0.2s ease;
+	}
+
+	.project-links a:hover {
+		color: var(--cyan);
+		border-color: var(--cyan);
+	}
+</style>

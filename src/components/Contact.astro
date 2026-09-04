@@ -1,0 +1,109 @@
+---
+import { site } from "../data/site";
+---
+
+<section class="section contact" id="contact">
+	<div class="orb orb-contact"></div>
+	<div class="container contact-inner">
+		<p class="eyebrow" data-reveal>Contact</p>
+		<h2 class="contact-title" data-reveal>
+			Let's build something <span class="gradient-text">great</span> together.
+		</h2>
+		<p class="contact-sub" data-reveal>
+			Have a project in mind, or just want to say hi? My inbox is open.
+		</p>
+
+		<div class="contact-actions" data-reveal>
+			<a href={`mailto:${site.email}`} class="btn btn-primary" data-magnetic>{site.email}</a>
+			<button class="btn btn-ghost" id="copy-email" data-magnetic type="button">Copy email</button>
+		</div>
+
+		<div class="contact-social" data-reveal>
+			<a href={site.social.github} target="_blank" rel="noreferrer" data-magnetic>GitHub</a>
+			<a href={site.social.linkedin} target="_blank" rel="noreferrer" data-magnetic>LinkedIn</a>
+			<a href={site.social.twitter} target="_blank" rel="noreferrer" data-magnetic>Twitter</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.contact {
+		position: relative;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	.orb-contact {
+		position: absolute;
+		width: 600px;
+		height: 600px;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent 70%);
+		filter: blur(80px);
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.contact-inner {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.contact-title {
+		margin-top: 1rem;
+		font-size: clamp(2.25rem, 5vw, 3.75rem);
+		max-width: 780px;
+		line-height: 1.08;
+	}
+
+	.contact-sub {
+		margin-top: 1.5rem;
+		color: var(--text-dim);
+		font-size: 1.05rem;
+	}
+
+	.contact-actions {
+		margin-top: 2.5rem;
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.contact-social {
+		margin-top: 3rem;
+		display: flex;
+		gap: 2rem;
+	}
+
+	.contact-social a {
+		text-decoration: none;
+		color: var(--text-dim);
+		font-size: 0.9rem;
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.contact-social a:hover {
+		color: var(--cyan);
+	}
+</style>
+
+<script define:vars={{ email: site.email }}>
+	const btn = document.getElementById("copy-email");
+	btn?.addEventListener("click", async () => {
+		try {
+			await navigator.clipboard.writeText(email);
+			const original = btn.textContent;
+			btn.textContent = "Copied!";
+			setTimeout(() => (btn.textContent = original), 1800);
+		} catch {
+			// clipboard unavailable; ignore
+		}
+	});
+</script>

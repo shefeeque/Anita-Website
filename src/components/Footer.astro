@@ -1,0 +1,37 @@
+---
+import { site } from "../data/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+	<div class="container footer-inner">
+		<p>&copy; {year} {site.name}. Built with Astro.</p>
+		<a href="#top" class="back-top" data-magnetic aria-label="Back to top">↑ Top</a>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		border-top: 1px solid var(--border);
+	}
+
+	.footer-inner {
+		padding: 2.25rem 1.75rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		color: var(--text-faint);
+		font-size: 0.85rem;
+	}
+
+	.back-top {
+		text-decoration: none;
+		color: var(--text-dim);
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.back-top:hover {
+		color: var(--cyan);
+	}
+</style>
