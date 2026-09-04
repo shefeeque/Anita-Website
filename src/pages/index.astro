@@ -1,0 +1,120 @@
+---
+const title = "Anita";
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header class="site-header">
+			<nav>
+				<a class="brand" href="/">{title}</a>
+				<ul>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>
+			<section class="hero">
+				<h1>Welcome to {title}</h1>
+				<p>This is a basic Astro site — a starting point to build on.</p>
+			</section>
+
+			<section id="about">
+				<h2>About</h2>
+				<p>Add your content here.</p>
+			</section>
+
+			<section id="contact">
+				<h2>Contact</h2>
+				<p>Add contact details or a form here.</p>
+			</section>
+		</main>
+
+		<footer>
+			<p>&copy; {new Date().getFullYear()} {title}</p>
+		</footer>
+	</body>
+</html>
+
+<style>
+	:global(body) {
+		margin: 0;
+		font-family: system-ui, sans-serif;
+		color: #1a1a1a;
+		line-height: 1.6;
+	}
+
+	.site-header {
+		border-bottom: 1px solid #eee;
+	}
+
+	nav {
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 1rem 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.brand {
+		font-weight: 700;
+		font-size: 1.25rem;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	nav ul {
+		list-style: none;
+		display: flex;
+		gap: 1.5rem;
+		margin: 0;
+		padding: 0;
+	}
+
+	nav a {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	nav a:hover {
+		text-decoration: underline;
+	}
+
+	main {
+		max-width: 960px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+	}
+
+	.hero {
+		padding: 4rem 0;
+		text-align: center;
+	}
+
+	.hero h1 {
+		font-size: 2.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	section {
+		padding: 3rem 0;
+		border-top: 1px solid #eee;
+	}
+
+	footer {
+		text-align: center;
+		padding: 2rem 1.5rem;
+		color: #666;
+		font-size: 0.9rem;
+	}
+</style>
